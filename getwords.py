@@ -73,6 +73,11 @@ def getspanishwords():
             process = CrawlerProcess(get_project_settings())
             process.crawl(SpanishSpider)
             process.start()
+            if len(SpanishSpider.faillist) > 0:
+                print(colors.warning(
+                    "Failed to retrieve the following words:"))
+                for item in SpanishSpider.faillist:
+                    print(colors.warning(item))
 
 
 getspanishwords()

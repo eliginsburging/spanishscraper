@@ -10,6 +10,7 @@ from helpers import (yesno_prompt,
 
 class SpanishSpider(scrapy.Spider):
     name = "spanishspider"
+    faillist = []
 
     def start_requests(self):
         with open('toscrape.txt') as f:
@@ -31,6 +32,10 @@ class SpanishSpider(scrapy.Spider):
             exlist = response.css('span._1f2Xuesa::text').getall()
             trlist = response.css('span._3WrcYAGx::text').getall()
             eyerelief()
+            if len(exlist) == 0:
+                print(f'{colors.warning("ERROR - NO RESULTS RETURNED; SKIPPING " + response.url[38:])}')
+                self.faillist.append(response.url[38:])
+                break
             for ex, tr in zip(exlist, trlist):
                 print(f'{n}\n{colors.bluetext(ex)}\n{colors.information(tr)}')
                 n += 1
