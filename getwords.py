@@ -31,15 +31,12 @@ def getspanishwords():
             warning2 = ("It appears that toscrape.txt is improperly formatted."
                         " the file should contain only single Spanish words on"
                         " new lines. Exiting.")
-            if f.read() == '':
-                print(colors.warning(warning1 + '\n' + warning2))
-                toscrape = False
-            else:
-                for line in f:
-                    if not validate_line(line):
-                        toscrape = False
-                        print(colors.warning(warning1 + '\n' + warning2))
-                        break
+            content = f.readlines()
+            for item in content:
+                if not validate_line(item.replace('\n', '')):
+                    toscrape = False
+                    print(colors.warning(warning1 + '\n' + warning2))
+                    break
     if toscrape:
         with open('toscrape.txt') as f:
             print(colors.prompt(
