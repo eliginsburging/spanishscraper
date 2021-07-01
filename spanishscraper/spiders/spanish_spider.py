@@ -29,8 +29,8 @@ class SpanishSpider(scrapy.Spider):
                 raise CloseSpider(loopbreak)
                 break
             n = 0
-            exlist = response.css('span.exampleFirstHalf--1vjZoH4D::text').getall()
-            trlist = response.css('span.exampleSecondHalf--3nHbP_Tm::text').getall()
+            exlist = response.css('span._1vjZoH4D::text').getall()
+            trlist = response.css('span._3nHbP_Tm::text').getall()
             eyerelief()
             if len(exlist) == 0:
                 print(f'{colors.warning("ERROR - NO RESULTS RETURNED; SKIPPING " + response.url[38:])}')
